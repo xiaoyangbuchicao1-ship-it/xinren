@@ -1,0 +1,5 @@
+[project]
+name = "human-ai-consensus"
+version = "0.1.0"
+description = "Human-AI consensus with trust regulation and first-order meta-reinforcement learning"
+requires-python = ">=3.10"

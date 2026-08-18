@@ -1,0 +1,11 @@
+[project]
+name = "human-ai-consensus"
+version = "0.1.0"
+description = "双向信任与 First-Order MAML-PPO 人机共识仿真实验"
+requires-python = ">=3.10"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+addopts = "-ra"
+

@@ -1,0 +1,80 @@
+experiment:
+  name: human_ai_consensus
+  version: v0.1
+  output_dir: outputs
+  formal_seeds: [2026, 2027, 2028, 2029, 2030]
+  development_seeds: [2026, 2027, 2028]
+
+data:
+  num_experts: 5
+  num_ais: 5
+  num_issues: 5
+  reference_low: 0.2
+  reference_high: 0.8
+  human_bias_max: 0.10
+  human_noise_std: 0.12
+  ai_noise_std: 0.08
+  human_trust_beta: [2.0, 2.0]
+  correlation_variance_epsilon: 1.0e-12
+  fusion_epsilon: 1.0e-6
+
+consensus:
+  threshold: 0.85
+  planning_margin: 0.0
+  max_rounds: 8
+  solver: SLSQP
+  solver_max_iterations: 500
+  solver_ftol: 1.0e-9
+  constraint_tolerance: 1.0e-6
+  solver_restarts: 3
+
+response:
+  suggestion_bins: [0.0, 0.3, 0.7, 1.0]
+  multipliers: [0.5, 0.75, 1.0, 1.25]
+  type_names: [flexible, normal, stubborn]
+  type_probabilities: [0.4, 0.4, 0.2]
+  response_table:
+    flexible: [0.95, 0.85, 0.75]
+    normal: [0.80, 0.60, 0.40]
+    stubborn: [0.50, 0.25, 0.10]
+  response_noise_std: 0.05
+
+reward:
+  consensus_improvement_weight: 10.0
+  modification_cost_weight: 0.5
+  round_cost: 0.05
+  success_bonus: 2.0
+  timeout_penalty: 2.0
+
+ppo:
+  hidden_sizes: [64, 64]
+  activation: tanh
+  learning_rate: 3.0e-4
+  gamma: 0.99
+  gae_lambda: 0.95
+  clip_range: 0.20
+  update_epochs: 10
+  minibatch_size: 256
+  entropy_coefficient: 0.01
+  value_coefficient: 0.5
+  max_gradient_norm: 0.5
+  target_kl: 0.02
+
+maml:
+  meta_batch_size: 8
+  support_episodes: 5
+  query_episodes: 10
+  inner_steps: 1
+  actor_inner_learning_rate: 1.0e-3
+  critic_inner_learning_rate: 1.0e-3
+  meta_learning_rate: 1.0e-4
+
+evaluation:
+  development_train_tasks: 2000
+  development_validation_tasks: 500
+  development_test_tasks: 1000
+  formal_train_tasks: 10000
+  formal_validation_tasks: 2000
+  formal_test_tasks: 5000
+  bootstrap_samples: 2000
+  confidence_level: 0.95
